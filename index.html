@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steve Collins | Data Analyst</title>
+<meta name="description" content="Portfolio of Steve Collins, a data analyst working with SQL, Python, and BI tools.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F7F9; --ink:#16233B; --muted:#55627A; --line:#D9DEE7;
+  --accent:#C2410C; --panel:#FFFFFF;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0F1726;--ink:#E8ECF4;--muted:#9AA6BC;--line:#26324A;--accent:#F59E5B;--panel:#162036}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--sans)}
+main{max-width:760px;margin:0 auto;padding:72px 24px 96px}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.15;margin:0}
+h1{font-size:clamp(2.6rem,7vw,4.2rem);letter-spacing:-.02em}
+h2{font-size:1.7rem;margin-bottom:20px}
+h3{font-size:1.3rem;margin-bottom:8px}
+p{margin:0 0 16px;max-width:62ch}
+a{color:var(--ink);text-decoration-color:var(--accent);text-underline-offset:3px;text-decoration-thickness:2px}
+a:hover{color:var(--accent)}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
+section{margin-top:72px}
+.lede{font-size:1.2rem;color:var(--muted);margin-top:20px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:84px;margin-top:36px}
+.bars span{width:22px;background:var(--ink);opacity:.9}
+.bars span:nth-child(5){background:var(--accent);opacity:1}
+.links{display:flex;flex-wrap:wrap;gap:20px;margin-top:28px;font-weight:500}
+.project{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:28px}
+.project ul{margin:0 0 16px;padding-left:20px}
+.project li{margin-bottom:6px}
+.meta{color:var(--muted);font-size:.95rem}
+.todo{color:var(--muted);font-style:italic}
+dl{display:grid;grid-template-columns:140px 1fr;gap:12px 20px;margin:0}
+dt{font-weight:600}
+dd{margin:0;color:var(--muted)}
+@media (max-width:520px){dl{grid-template-columns:1fr;gap:2px}dd{margin-bottom:12px}main{padding-top:48px}}
+footer{margin-top:72px;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Steve Collins</h1>
+    <p class="lede">I'm a data analyst. I use SQL and Python to turn raw sales data into clear answers about what's working, what isn't, and what to do next.</p>
+    <div class="bars" role="img" aria-label="Decorative bar chart with one highlighted bar">
+      <span style="height:28%"></span><span style="height:46%"></span><span style="height:38%"></span><span style="height:62%"></span><span style="height:100%"></span><span style="height:74%"></span><span style="height:88%"></span>
+    </div>
+    <nav class="links" aria-label="Profiles">
+      <a href="https://github.com/collinssteve100-cell">GitHub</a>
+      <a href="#">LinkedIn</a><!-- replace # with your LinkedIn URL -->
+      <a href="mailto:you@example.com">Email</a><!-- replace with your email -->
+    </nav>
+  </header>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <article class="project">
+      <h3>Retail Sales &amp; Customer Performance Analysis</h3>
+      <p class="meta">SQL, Python, Pandas, Matplotlib</p>
+      <p>An end-to-end analysis of retail transactions, from raw data profiling and cleaning to SQL analysis, KPI tracking, and dashboard-ready output.</p>
+      <p>It answers:</p>
+      <ul>
+        <li>Which regions and product categories drive sales and profit?</li>
+        <li>Which customers generate the most value?</li>
+        <li>How do discounts affect profitability?</li>
+      </ul>
+      <p class="todo">Add your 2-3 key findings here, with real numbers from your analysis.</p>
+      <p><a href="https://github.com/collinssteve100-cell/retail-sales-analysis">View the code on GitHub</a>
+         &nbsp;&nbsp;<a href="#">Open the dashboard</a><!-- replace # with your public dashboard link --></p>
+    </article>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <dl>
+      <dt>Querying</dt><dd>SQL</dd>
+      <dt>Analysis</dt><dd>Python, Pandas, data cleaning and validation</dd>
+      <dt>Visualization</dt><dd>Looker Studio, Power BI, Excel, Matplotlib</dd>
+      <dt>Workflow</dt><dd>Git and GitHub</dd>
+    </dl>
+  </section>
+
+  <section id="contact">
+    <h2>Get in touch</h2>
+    <p>I'm open to data analyst roles and freelance projects. The quickest way to reach me is by email or LinkedIn.</p>
+  </section>
+
+  <footer>&copy; 2026 Steve Collins</footer>
+</main>
+</body>
+</html>
