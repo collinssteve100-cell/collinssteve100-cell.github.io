@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retail Sales Dashboard | Steve Collins</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F7F9;--ink:#16233B;--muted:#55627A;--line:#D9DEE7;--panel:#fff;--accent:#C2410C;--neg:#B42318;--serif:"Newsreader",Georgia,serif;--sans:"Instrument Sans",system-ui,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1726;--ink:#E8ECF4;--muted:#9AA6BC;--line:#26324A;--panel:#162036;--accent:#F59E5B;--neg:#F97066}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans)}
+main{max-width:1000px;margin:0 auto;padding:40px 20px 64px}
+h1,h2{font-family:var(--serif);margin:0;line-height:1.15}h1{font-size:2.2rem}h2{font-size:1.2rem;margin-bottom:14px}
+.sub{color:var(--muted);margin:6px 0 28px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px}
+.kpi b{display:block;font:600 1.7rem var(--serif)}.kpi span{color:var(--muted);font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:12px}
+.wide{grid-column:1/-1}
+.row{display:grid;grid-template-columns:110px 1fr 70px;gap:10px;align-items:center;margin-bottom:10px;font-size:.92rem}
+.bar{height:14px;background:var(--ink);border-radius:2px}.bar.neg{background:var(--neg)}.bar.hi{background:var(--accent)}
+.row em{font-style:normal;text-align:right;font-weight:600}
+svg{width:100%;height:auto;display:block}.note{color:var(--muted);font-size:.9rem;margin:12px 0 0}
+.leg{display:flex;gap:16px;font-size:.85rem;color:var(--muted);margin-bottom:6px}.leg i{display:inline-block;width:12px;height:3px;margin-right:6px;vertical-align:middle}
+</style></head><body><main>
+<h1>Retail Sales &amp; Customer Performance</h1>
+<p class="sub">10,000 synthetic orders, January 2024 to December 2025. Built from the cleaned dataset in the project repo.</p>
+<div class="kpis" id="kpis"></div>
+<div class="grid">
+<div class="card wide"><h2>Sales and profit by month</h2><div class="leg"><span><i style="background:var(--ink)"></i>Sales</span><span><i style="background:var(--accent)"></i>Profit</span></div><div id="trend"></div></div>
+<div class="card"><h2>Profit by region</h2><div id="region"></div></div>
+<div class="card"><h2>Profit by category</h2><div id="category"></div></div>
+<div class="card"><h2>Profit by customer segment</h2><div id="segment"></div></div>
+<div class="card"><h2>Profit margin by discount level</h2><div id="disc"></div><p class="note">Margin falls as discounts rise, and orders discounted above 30% lose money overall.</p></div>
+</div></main>
+<script>
+const D={"kpi":{"sales":11657779.44,"profit":1614999.47,"orders":10000,"cust":1199,"aov":1165.78},"month":[["2024-01",473600,64028],["2024-02",449881,59371],["2024-03",500216,67660],["2024-04",396192,61605],["2024-05",488747,67254],["2024-06",502205,73684],["2024-07",495143,69876],["2024-08",549634,73651],["2024-09",468006,66170],["2024-10",477150,66716],["2024-11",518193,67992],["2024-12",477256,69516],["2025-01",448694,58901],["2025-02",457652,63348],["2025-03",477381,63166],["2025-04",479108,64307],["2025-05",472385,67781],["2025-06",512081,72095],["2025-07",544981,76214],["2025-08",523856,69471],["2025-09",439109,59799],["2025-10",497292,74131],["2025-11",495963,69601],["2025-12",513055,68664]],"region":[["East",3165043,443717],["West",3034831,426044],["Central",2874662,395394],["South",2583244,349844]],"category":[["Technology",6082983,957831],["Furniture",4209365,361436],["Office Supplies",1365431,295732]],"segment":[["Consumer",6864173,953117],["Corporate",2854281,397109],["Home Office",1939326,264774]],"disc":[["0%",498779,1820,20.24],["1-10%",730156,3717,16.0],["11-20%",363020,3090,10.52],["21-30%",30253,873,3.79],["30%+",-7211,500,-1.89]]};
+const $=id=>document.getElementById(id),f=n=>Math.abs(n)>=1e6?(n/1e6).toFixed(2)+"M":Math.abs(n)>=1e3?Math.round(n/1e3)+"K":n;
+const k=D.kpi;$("kpis").innerHTML=[["$"+f(k.sales),"Total sales"],["$"+f(k.profit),"Total profit"],((k.profit/k.sales)*100).toFixed(2)+"%|Profit margin",k.orders.toLocaleString()+"|Orders",k.cust.toLocaleString()+"|Customers","$"+Math.round(k.aov).toLocaleString()+"|Average order value"].map(x=>{const[a,b]=Array.isArray(x)?x:x.split("|");return `<div class="card kpi"><b>${a}</b><span>${b}</span></div>`}).join("");
+function bars(id,rows,fmt){const m=Math.max(...rows.map(r=>Math.abs(r[1])));$(id).innerHTML=rows.map((r,i)=>`<div class="row"><span>${r[0]}</span><div><div class="bar ${r[1]<0?"neg":i==0?"hi":""}" style="width:${Math.max(1,Math.abs(r[1])/m*100)}%"></div></div><em>${fmt(r)}</em></div>`).join("")}
+const money=r=>"$"+f(r[1]);
+bars("region",D.region.map(r=>[r[0],r[2]]),money);bars("category",D.category.map(r=>[r[0],r[2]]),money);bars("segment",D.segment.map(r=>[r[0],r[2]]),money);
+bars("disc",D.disc.map(r=>[r[0],r[3]]),r=>r[1].toFixed(1)+"%");
+const W=900,H=260,p=40,m=D.month,mx=Math.max(...m.map(r=>r[1])),x=i=>p+i*(W-p-10)/(m.length-1),y=v=>H-24-v/mx*(H-40);
+const line=(c,col)=>`<polyline fill="none" stroke="${col}" stroke-width="2.5" points="${m.map((r,i)=>x(i)+","+y(r[c])).join(" ")}"/>`;
+let g="";[0,.5,1].forEach(t=>{const v=mx*t;g+=`<line x1="${p}" x2="${W-10}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${p-6}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${f(v)}</text>`});
+m.forEach((r,i)=>{if(i%3==0)g+=`<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="11" fill="var(--muted)">${r[0]}</text>`});
+$("trend").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Monthly sales and profit trend">${g}${line(1,"var(--ink)")}${line(2,"var(--accent)")}</svg>`;
+</script></body></html>
